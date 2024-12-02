@@ -1,5 +1,7 @@
 # Phish Phighters - Design Documentation
 
+This project is a secure file storage and sharing system with user authentication and multiple device support.
+
 ## Data Structures
 Our system organizes data in Google Datastore using structs for:
 - **Users**: Contains user-specific information.
