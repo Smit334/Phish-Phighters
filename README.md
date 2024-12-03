@@ -1,21 +1,135 @@
-# Project 2 Starter Code
+# Phish-Phighters
 
-This repository contains the starter code for Project 2!
+Phish-Phighters is a secure file storage and sharing system implemented in Go. It provides functionalities for storing, loading, appending, and sharing files securely among users.
 
-For comprehensive documentation, see the Project 2 Spec (https://cs161.org/proj2/).
+## Features
 
-Write your implementation in `client/client.go` and your integration tests in `client_test/client_test.go`. Optionally, you can also use `client/client_unittest.go` to write unit tests (e.g: to test your helper functions).
+- Secure file storage with encryption and integrity checks
+- File sharing with access control
+- Append operations to existing files
+- User authentication and invitation system
 
-To test your implementation, run `go test -v` inside of the `client_test` directory. This will run all tests in both `client/client_unittest.go` and `client_test/client_test.go`.
+## Setup
 
-## Project Members
+### Prerequisites
 
-Fill in this section with the student IDs of all the members in your project group.
+- Go 1.20 or later
+- Git
 
-Partner 1 SID: 3036579703
+### Installation
 
-Partner 2 SID (if applicable): 3037338547
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/Phish-Phighters.git
+    cd Phish-Phighters
+    ```
 
-Also add a link to this repo below (should start with https://github.com/cs161-students/).
+2. Install dependencies:
+    ```sh
+    go mod tidy
+    ```
 
-Link to this Github repo: https://github.com/cs161-students/fa23-proj2-phish-phighters.git
+## Usage
+
+### Running Tests
+
+To run the tests, use the following command:
+```sh
+go test ./client_test
+```
+
+### File Operations
+
+Phish-Phighters supports various file operations such as storing, loading, and appending to files. Below are some examples of how to use these functionalities:
+
+#### Storing a File
+```go
+alice, err := client.InitUser("alice", "password")
+if err != nil {
+    log.Fatal(err)
+}
+err = alice.StoreFile("example.txt", []byte("Hello, World!"))
+if err != nil {
+    log.Fatal(err)
+}
+```
+
+#### Loading a File
+```go
+data, err := alice.LoadFile("example.txt")
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println(string(data)) // Output: Hello, World!
+```
+
+#### Appending to a File
+```go
+err = alice.AppendToFile("example.txt", []byte(" More content."))
+if err != nil {
+    log.Fatal(err)
+}
+data, err = alice.LoadFile("example.txt")
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println(string(data)) // Output: Hello, World! More content.
+```
+
+### Sharing Files
+
+Phish-Phighters allows users to share files with others securely. Below is an example of how to share a file and accept an invitation:
+
+#### Sharing a File
+```go
+invite, err := alice.CreateInvitation("example.txt", "bob")
+if err != nil {
+    log.Fatal(err)
+}
+```
+
+#### Accepting an Invitation
+```go
+bob, err := client.InitUser("bob", "password")
+if err != nil {
+    log.Fatal(err)
+}
+err = bob.AcceptInvitation("alice", invite, "bob_example.txt")
+if err != nil {
+    log.Fatal(err)
+}
+data, err := bob.LoadFile("bob_example.txt")
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println(string(data)) // Output: Hello, World! More content.
+```
+
+### Revoking Access
+
+Users can also revoke access to shared files:
+
+```go
+err = alice.RevokeAccess("example.txt", "bob")
+if err != nil {
+    log.Fatal(err)
+}
+```
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contact
+
+For any questions or support, please contact:
+
+- Name: Smit Malde
+- GitHub: [Smit334](https://github.com/Smit334)
+or 
+- Name: Andres Chaidez
+- GitHub: [4ndyNMC](https://github.com/4ndyNMC)
