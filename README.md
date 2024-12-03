@@ -250,7 +250,10 @@ For any questions or support, please contact:
 
 - Name: Smit Malde
 - GitHub: [Smit334](https://github.com/Smit334)
-or 
+
+or
+
+
 - Name: Andres Chaidez
 - GitHub: [4ndyNMC](https://github.com/4ndyNMC)
 Phish Phighters - Design Documentation
